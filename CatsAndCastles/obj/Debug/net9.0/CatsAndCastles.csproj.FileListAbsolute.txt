@@ -1,0 +1,14 @@
+C:\Users\Sehers\Desktop\repos\CatsAndCastles\CatsAndCastles\bin\Debug\net9.0\CatsAndCastles.exe
+C:\Users\Sehers\Desktop\repos\CatsAndCastles\CatsAndCastles\bin\Debug\net9.0\CatsAndCastles.deps.json
+C:\Users\Sehers\Desktop\repos\CatsAndCastles\CatsAndCastles\bin\Debug\net9.0\CatsAndCastles.runtimeconfig.json
+C:\Users\Sehers\Desktop\repos\CatsAndCastles\CatsAndCastles\bin\Debug\net9.0\CatsAndCastles.dll
+C:\Users\Sehers\Desktop\repos\CatsAndCastles\CatsAndCastles\bin\Debug\net9.0\CatsAndCastles.pdb
+C:\Users\Sehers\Desktop\repos\CatsAndCastles\CatsAndCastles\obj\Debug\net9.0\CatsAndCastles.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Sehers\Desktop\repos\CatsAndCastles\CatsAndCastles\obj\Debug\net9.0\CatsAndCastles.AssemblyInfoInputs.cache
+C:\Users\Sehers\Desktop\repos\CatsAndCastles\CatsAndCastles\obj\Debug\net9.0\CatsAndCastles.AssemblyInfo.cs
+C:\Users\Sehers\Desktop\repos\CatsAndCastles\CatsAndCastles\obj\Debug\net9.0\CatsAndCastles.csproj.CoreCompileInputs.cache
+C:\Users\Sehers\Desktop\repos\CatsAndCastles\CatsAndCastles\obj\Debug\net9.0\CatsAndCastles.dll
+C:\Users\Sehers\Desktop\repos\CatsAndCastles\CatsAndCastles\obj\Debug\net9.0\refint\CatsAndCastles.dll
+C:\Users\Sehers\Desktop\repos\CatsAndCastles\CatsAndCastles\obj\Debug\net9.0\CatsAndCastles.pdb
+C:\Users\Sehers\Desktop\repos\CatsAndCastles\CatsAndCastles\obj\Debug\net9.0\CatsAndCastles.genruntimeconfig.cache
+C:\Users\Sehers\Desktop\repos\CatsAndCastles\CatsAndCastles\obj\Debug\net9.0\ref\CatsAndCastles.dll
