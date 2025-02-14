@@ -44,6 +44,7 @@ public class MainRoom
         backPack.Pack = new string[5]; // creates a new pack that holds 5 items 
         backPack.DiscardedItems = new List<string>(); // create a record of all items that have been discarded 
         backPack.ListOfAllItemsPickedUp = new List<string>(); //keep track of all items that have been picked up 
+        backPack.Wallet = new int[1];
 
         for (int i = 0; i < backPack.Pack.Length; i++) // fills back with "" for later checks 
         {
@@ -172,6 +173,17 @@ public class MainRoom
             FirstRoomChoices();
         }
 
+        void ListItemsInLocation(string location)
+        {
+            backPack.AssignItemsBasedOnLocation(location);
+            for (int i = 0; i < backPack.Options.Length; i++)
+            {
+                if (backPack.ListOfAllItemsPickedUp.Contains(backPack.Options[i]))
+                    backPack.Descriptions[i] = backPack.emptySpot;
+                Console.WriteLine($"- {backPack.Descriptions[i]}");
+            }
+        }
+
         void DecisionTime(string location)
         {
             Console.WriteLine("Please press '1' if you'd like to take some items with you and '2' if you'd like to ");
@@ -188,16 +200,11 @@ public class MainRoom
                               "furniture beside the cushion where you first woke up. Its surface " +
                               "is scratched, its single drawer slightly ajar, as if someone once " +
                               "meant to close it but never quite did." +
-                              "\nInside, you find:" +
-                              "\n- Five gold coins, their surfaces dull with age but still " +
-                              "carrying a reassuring weight. " +
-                              "\n- A pair of glasses, their lenses smudged with dust, the frames " +
-                              "bent slightly out of shape." +
-                              "\n- A book of prayers, its leather cover cracked with age, " +
-                              "the pages thin and delicate." +
-                              "\nThe drawer holds no more secrets, only the question of whether " +
+                              "\n\nInside, you find:");
+            ListItemsInLocation("nightstand");
+            Console.WriteLine("\nThe drawer holds no more secrets, only the question of whether " +
                               "any of these things might be useful to you." +
-                              "\nWould you like to take anything?");
+                              "\n\nWould you like to take anything?");
             DecisionTime("nightstand");
         }
 
@@ -206,13 +213,10 @@ public class MainRoom
             Console.WriteLine("You move toward the small door on the opposite wall, its wood worn and cracked. " +
                               "It creaks loudly as you push it open, revealing a narrow, dim space." +
                               "Upon stepping inside, you realize this is a closet. The air is stale, thick with dust." +
-                              "The shelves are cluttered with a several folded bed sheets, their fabric yellowed but sturdy. " +
-                              "A broom and dustpan lean against the far wall, unused for what seems like years. " +
-                              "In the corner, you spot a set of manacles, their chains coiled and rusted, almost " +
-                              "blending into the shadowy corner. " +
-                              "This space hasn't been used in a long time—and whatever it was used for " +
-                              "doesn't seem welcoming.");
-
+                              "\n\nThe shelves are cluttered with the following items:");
+            ListItemsInLocation("closet");
+            Console.WriteLine("\nThis space hasn't been used in a long time—and whatever it was used for " +
+                              "doesn't seem welcoming. \n\nWould you like to take anything?");
             DecisionTime("closet");
         }
 
@@ -222,19 +226,10 @@ public class MainRoom
                               "It stands tall against the wall, its once-polished wood " +
                               "now dull and splintered. Most of the shelves are bare, coated in dust thick enough " +
                               "to leave tracks." +
-                              "\nScanning the empty spaces, your eyes catch a few forgotten objects:" +
-                              "\n- A dagger, its handle wrapped in worn leather, the blade dull but still sharp " +
-                              "enough to be dangerous." +
-                              "\n- A small, rusted set of tools—a few thin rods of metal, a hook, and something " +
-                              "resembling a flattened key. They seem out of place, their purpose unclear at first, " +
-                              "though their delicate shapes suggest they might fit into something small and stubborn." +
-                              "\n- A wooden figurine, carved in the shape of a cat. It’s crude but detailed enough " +
-                              "to capture the curve of a tail and the prickle of carved fur along its back. " +
-                              "The eyes, once painted, have long since faded, leaving behind empty impressions " +
-                              "in the wood." +
-                              "\nThe air here is still, as though these objects have been waiting undisturbed for a " +
+                              "\n\nScanning the empty spaces, your eyes catch a few forgotten objects:");
+            ListItemsInLocation("bookshelf");
+            Console.WriteLine("\nThe air here is still, as though these objects have been waiting undisturbed for a " +
                               "long time.\n\nWould you like to take anything with you?");
-
             DecisionTime("bookshelf");
         }
 
@@ -242,16 +237,10 @@ public class MainRoom
         void ExploreHearth()
         {
             Console.WriteLine("Your gaze drifts to the hearth—large and cold, its once-grand stonework now " +
-                              "stained with time. As you step closer, your paws stir the dust, revealing " +
-                              "forgotten things among the ashes and shadows." +
-                              "\n- A fire poker, its iron worn smooth from years of use, still sturdy " +
-                              "enough to be a weapon or a tool." +
-                              "\n- A large, loose stone, sitting slightly askew among the others. Heavier than " +
-                              "it looks, it would be perfect for smashing something stubborn." +
-                              "\n- A shield, nearly invisible at first, hidden beneath layers of dust and cobwebs. " +
-                              "Its metal is dulled, its emblem barely discernible, but it remains solid—built " +
-                              "to withstand blows." +
-                              "\nWould you like to take anything?");
+                              "stained with time. \n\nAs you step closer, your paws stir the dust, revealing " +
+                              "forgotten things among the ashes and shadows:");
+            ListItemsInLocation("hearth");
+            Console.WriteLine("Would you like to take anything?");
             DecisionTime("hearth");
         }
 
@@ -494,7 +483,6 @@ public class MainRoom
                     case "3":
                         ReturnToMainPartOfRoom("door");
                         break;
-                        
                 }
             }
 

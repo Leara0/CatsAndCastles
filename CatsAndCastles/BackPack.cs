@@ -2,13 +2,14 @@ namespace CatsAndCastles;
 
 public class BackPack
 {
-
     public string emptySpot = "a faint outline marking the spot where something once rested";
     public string[] Pack { get; set; } = new string[5];
     public List<string> DiscardedItems { get; set; } // @fix do I need this code ?= new List<string>() { "" };
 
     public List<string>
         ListOfAllItemsPickedUp { get; set; } //use this to prevent player from picking up the same object multiple times
+
+    public int[] Wallet { get; set; } = new int[1] { 0 };
 
     public static string UserChoice(int numberOfOptions = 2)
     {
@@ -83,6 +84,7 @@ public class BackPack
             }
         }
     }
+
     public void RemoveItemsFromPack()
     {
         if (NumberOfItemsInPack() == 0)
@@ -92,6 +94,7 @@ public class BackPack
             Console.ReadLine();
             return;
         }
+
         ListContentsOfPack();
 
         Console.WriteLine("Please enter the number of the item you would like to remove.");
@@ -107,6 +110,7 @@ public class BackPack
         {
             Console.WriteLine("There is nothing in this spot so nothing has been removed.");
         }
+
         Console.WriteLine("Please 'enter' to continue");
         Console.ReadLine();
     }
@@ -121,7 +125,7 @@ public class BackPack
                               $"Or press {DiscardedItems.Count + 1} to return to exploring the room");
         }
 
-        int response = Convert.ToInt32(UserChoice(DiscardedItems.Count +1));
+        int response = Convert.ToInt32(UserChoice(DiscardedItems.Count + 1));
 
         if (response < DiscardedItems.Count + 1)
         {
@@ -130,9 +134,49 @@ public class BackPack
         }
     }
 
-    public void AddItemToPack(string item) // @fix change so that check for full pack is in here
+    public string AddMoney(string item)
     {
-        if(NumberOfItemsInPack() ==5)
+        ListOfAllItemsPickedUp
+            .Add(item);
+
+        if (item.Contains("five gold coins"))
+            Wallet[0] += 5;
+        if (item.Contains("ten gold coins"))
+            Wallet[0] += 10;
+        if (item.Contains("fifteen gold coins"))
+            Wallet[0] += 15;
+
+        switch (Wallet[0])
+        {
+            case 5:
+                item = "5 gold coins";
+                break;
+            case 10:
+                item = "10 gold coins";
+                break;
+            case 15:
+                item = "15 gold coins";
+                break;
+            case 20:
+                item = "20 gold coins";
+                break;
+            case 25:
+                item = "25 gold coins";
+                break;
+            case 30:
+                item = "30 gold coins";
+                break;
+            case 35:
+                item = "35 gold coins";
+                break;
+        }
+
+        return item;
+    }
+
+    public void AddItemToPack(string item)
+    {
+        if (NumberOfItemsInPack() == 5)
         {
             Console.WriteLine("Your pack is too burdened to add any more items. You must remove" +
                               $" something to make space for {item}.");
@@ -142,69 +186,107 @@ public class BackPack
             else
                 return;
         }
-        
+
         if (item == emptySpot)
         {
             Console.WriteLine("Nothing remains in this spot. Please make an alternate selection");
             Console.WriteLine("Press 'enter' to continue");
             Console.ReadLine();
+            return;
         }
-        else
+
+        if (item.Contains("coins"))
         {
-            for (int i = 0; i < Pack.Length; i++) // then add it to an empty space in the pack
-                if (Pack[i] == "")
-                {
-                    Pack[i] = item;
-                    Console.WriteLine($"You added {item} to your pack");
-                    ListOfAllItemsPickedUp
-                        .Add(item); //and add the item to the list of all items that have been picked up
-                    Console.WriteLine("Press 'enter' to continue");
-                    Console.ReadLine();
-                    return;
-                }
+            item = AddMoney(item);
+        }
+
+        for (int i = 0; i < Pack.Length; i++) // then add it to an empty space in the pack
+            if (Pack[i] == "")
+            {
+                Pack[i] = item;
+                Console.WriteLine($"You pack now contains {item}");
+                ListOfAllItemsPickedUp
+                    .Add(item); //and add the item to the list of all items that have been picked up
+                Console.WriteLine("Press 'enter' to continue");
+                Console.ReadLine();
+                return;
+            }
+    }
+
+    public string[] Options = new string[3];
+    public string[] Descriptions = new string[3];
+
+    public void AssignItemsBasedOnLocation(string location)
+    {
+        switch (location)
+        {
+            case "closet":
+                Options[0] = "faded bed sheets";
+                Descriptions[0] = "Several folded bed sheets, their fabric yellowed but sturdy.";
+                Options[1] = "the broom and dust pan";
+                Descriptions[1] = "A broom and dustpan that lean against the far wall, unused for " +
+                                  "what seems like years.";
+                Options[2] = "manacles";
+                Descriptions[2] = "A set of manacles, their chains coiled and rusted, almost blending into " +
+                                  "the shadowy corner.";
+                break;
+            case "nightstand":
+                Options[0] = "five gold coins in the drawer";
+                Descriptions[0] = "Five gold coins, their surfaces dull with age but still carrying a " +
+                                  "reassuring weight.";
+                Options[1] = "a pair of glasses";
+                Descriptions[1] = "A pair of glasses, their lenses smudged with dust, the frames bent slightly " +
+                                  "out of shape.";
+                Options[2] = "a book of prayers";
+                Descriptions[2] = "A book of prayers, its leather cover cracked with age, the pages thin and delicate.";
+                break;
+            case "bookshelf":
+                Options[0] = "the dagger";
+                Descriptions[0] =
+                    "A dagger, its handle wrapped in worn leather, the blade dull but still sharp enough to be dangerous.";
+                Options[1] = "the rusted set of tools";
+                Descriptions[1] = "A small, rusted set of tools—a few thin rods of metal, a hook, and something " +
+                                  "resembling a flattened key. They seem out of place, their purpose unclear at " +
+                                  "first, though their delicate shapes suggest they might fit into something " +
+                                  "small and stubborn.";
+                Options[2] = "the cat figurine";
+                Descriptions[2] = "A wooden figurine, carved in the shape of a cat. It’s crude but detailed enough " +
+                                  "to capture the curve of a tail and the prickle of carved fur along its back. " +
+                                  "The eyes, once painted, have long since faded, leaving behind empty impressions in the wood.";
+                break;
+            case "hearth":
+                Options[0] = "the fire poker";
+                Descriptions[0] = "A fire poker, its iron worn smooth from years of use, still sturdy " +
+                                  "enough to be a weapon or a tool.";
+                Options[1] = "the large stone";
+                Descriptions[1] = "A large, loose stone, sitting slightly askew among the others. Heavier than " +
+                                  "it looks, it would be perfect for smashing something stubborn.";
+                Options[2] = "the shield";
+                Descriptions[2] = "A shield, nearly invisible at first, hidden beneath layers of dust and cobwebs. " +
+                                  "Its metal is dulled, its emblem barely discernible, but it remains solid—built " +
+                                  "to withstand blows.";
+                break;
         }
     }
 
     public void TakeItems(string location)
     {
-        var options = new string[3];
-
-        switch (location)
-        {
-            case "closet":
-                options[0] = "faded bed sheets";
-                options[1] = "the broom and dust pan";
-                options[2] = "manacles";
-                break;
-            case "nightstand":
-                options[0] = "five dollars";
-                options[1] = "a pair of glasses";
-                options[2] = "a book of prayers";
-                break;
-            case "bookshelf":
-                options[0] = "the dagger";
-                options[1] = "the rusted set of tools";
-                options[2] = "the cat figurine";
-                break;
-            case "hearth":
-                options[0] = "the fire poker";
-                options[1] = "the large stone";
-                options[2] = "the shield";
-                break;
-        }
+        AssignItemsBasedOnLocation(location);
 
         do
         {
-            for (int i = 0; i < options.Length; i++) // mark items that have already been picked up
+            for (int i = 0; i < Options.Length; i++) // mark items that have already been picked up
             {
-                if (ListOfAllItemsPickedUp.Contains(options[i]))
-                    options[i] = emptySpot;
+                if (ListOfAllItemsPickedUp.Contains(Options[i])) // 
+                    Options[i] = emptySpot;
             }
 
             Console.WriteLine("\nPlease choose which items you would like to add to your pack:");
 
-            for (int i = 0; i < options.Length; i++)
-                Console.WriteLine($"  {i + 1} - {options[i]}");
+            for (int i = 0; i < Options.Length; i++)
+                Console.WriteLine($"  {i + 1} - {Options[i]}");
+
+
             Console.WriteLine($"\n Or press '4' to leave the {location}. " +
                               $"Items that you have removed from your inventory can be found in the discard " +
                               $"stash in the main room.");
@@ -212,13 +294,13 @@ public class BackPack
             switch (UserChoice(4))
             {
                 case "1":
-                    AddItemToPack(options[0]);
+                    AddItemToPack(Options[0]);
                     break;
                 case "2":
-                    AddItemToPack(options[1]);
+                    AddItemToPack(Options[1]);
                     break;
                 case "3":
-                    AddItemToPack(options[2]);
+                    AddItemToPack(Options[2]);
                     break;
                 case "4":
                     return;

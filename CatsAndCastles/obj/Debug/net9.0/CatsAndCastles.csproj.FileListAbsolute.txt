@@ -12,3 +12,4 @@ C:\Users\Sehers\Desktop\repos\CatsAndCastles\CatsAndCastles\obj\Debug\net9.0\ref
 C:\Users\Sehers\Desktop\repos\CatsAndCastles\CatsAndCastles\obj\Debug\net9.0\CatsAndCastles.pdb
 C:\Users\Sehers\Desktop\repos\CatsAndCastles\CatsAndCastles\obj\Debug\net9.0\CatsAndCastles.genruntimeconfig.cache
 C:\Users\Sehers\Desktop\repos\CatsAndCastles\CatsAndCastles\obj\Debug\net9.0\ref\CatsAndCastles.dll
+C:\Users\Sehers\Desktop\repos\CatsAndCastles\CatsAndCastles\obj\Debug\net9.0\CatsAndCastles.sourcelink.json
