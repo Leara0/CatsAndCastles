@@ -2,19 +2,6 @@ namespace CatsAndCastles;
 
 public class MainRoom
 {
-    public static string GetName()
-    {
-        Console.WriteLine("What is your name (or a name you like)?");
-        string name = Console.ReadLine();
-        return char.ToUpper(name[0]) + name.Substring(1);
-    }
-
-    public static string GetColor()
-    {
-        Console.WriteLine("What is your favorite color?");
-        return Console.ReadLine().ToLower();
-    }
-
     public static string UserChoice(int numberOfOptions = 2)
     {
         do
@@ -38,40 +25,39 @@ public class MainRoom
     public static void RunGame()
     {
         Console.Clear();
-        var name = GetName();
-        var color = GetColor();
+        Characters cat = new Characters();
+        var name = cat.GetName();
+        cat.Status = "in room";//@fix options at end will be passed out, outside, or in hall
+        
         BackPack backPack = new BackPack();
         backPack.Pack = new string[5]; // creates a new pack that holds 5 items 
         backPack.DiscardedItems = new List<string>(); // create a record of all items that have been discarded 
         backPack.ListOfAllItemsPickedUp = new List<string>(); //keep track of all items that have been picked up 
-        backPack.Wallet = new int[1];
 
+        Fight fight = new Fight();// @fix move this to the main story when I get that fixed
+        
         for (int i = 0; i < backPack.Pack.Length; i++) // fills back with "" for later checks 
         {
             backPack.Pack[i] = "";
         }
 
-        var
-            money = new int[1]; //I want this variable to be treated like an array (reference object) rather than int (value object)
+        StoryTime(name);
 
-
-        StoryTime(name, color);
-
-
-        void StoryTime(string name, string color)
+        void StoryTime(string name)
         {
+            Console.Clear();
             Console.WriteLine("\n   >   >   >   >   >   >   >   >   =^.^=   <   <   <   <   <   <   <   <   <   \n");
             Console.WriteLine(
                 "Greetings, adventurer. The night has been long and unkind, and your memories of it are ");
             Console.WriteLine("little more than a haze.");
 
-            FirstWakeUp(name, color);
+            FirstWakeUp(name);
         }
 
-        void FirstWakeUp(string name, string color)
+        void FirstWakeUp(string name)
         {
             Console.WriteLine("You wake, dazed and disoriented, your senses slow to return as you instinctively ");
-            Console.WriteLine($"groom your soft {color} coat. You feel a collar around your neck and notice a tag ");
+            Console.WriteLine($"groom your soft coat. You feel a collar around your neck and notice a tag ");
             Console.WriteLine($"with the name \"{name}\" attached. Hmmmm, that name seems faintly familiar? Is it ");
             Console.WriteLine(
                 "yours? A loved one's? The answer alludes you. You notice you still have your pack that can ");
@@ -95,14 +81,19 @@ public class MainRoom
             Console.WriteLine("The hairs along your spine bristle. Something about this place feels wrong,");
             Console.WriteLine("as though unseen eyes watch from the darkness, waiting.");
             Console.WriteLine("You must escape but are unsure where to begin.");
+            Console.WriteLine("Press 'enter' to continue.");
+            Console.WriteLine("\n   >   >   >   >   >   >   >   >   =^.^=   <   <   <   <   <   <   <   <   <   \n");
+            Console.ReadLine();
             FirstRoomChoices();
         }
 
         void FirstRoomChoices()
         {
-            Console.WriteLine("\nYour eyes scan the room, taking in the details of your surroundings."
-                              + " \nA few places stand out, each offering a chance to learn more:");
-            Console.WriteLine("1 - A heavy wooden door, its iron hinges rusted with age.");
+            Console.Clear();
+            Console.WriteLine("\n   <   <   <   <   <   <   <   <   =^.^=   >   >   >   >   >   >   >   >   >   \n");
+            Console.WriteLine("Your eyes scan the room, taking in the details of your surroundings."
+                              + " \n\nA few places stand out, each offering a chance to learn more:");
+            Console.WriteLine("\n1 - A heavy wooden door, its iron hinges rusted with age.");
             Console.WriteLine("2 - A second smaller wooden door, it looks as if it has seen little use.");
             Console.WriteLine("3 - A window, just high enough to reach with a careful leap.");
             Console.WriteLine("4 - The nightstand, small but perhaps hiding something useful.");
@@ -120,12 +111,13 @@ public class MainRoom
                 Console.WriteLine("8 - A heap of items you’ve chosen to discard—perhaps too hastily. " +
                                   "If you've changed your mind, you can return to the pile and reclaim items..");
             }
+            Console.WriteLine("9 - Check out how strong your inventory items would be in a fight");//@fix remove this 
 
             Console.WriteLine("\nWhere would you like to explore?");
             Console.WriteLine("Please press the number corresponding with your choice.");
-            Console.WriteLine("\n   >   >   >   >   >   >   >   >   =^.^=   <   <   <   <   <   <   <   <   <   \n");
+            Console.WriteLine("\n   <   <   <   <   <   <   <   <   =^.^=   >   >   >   >   >   >   >   >   >   \n");
 
-            switch (UserChoice(8))
+            switch (UserChoice(9))//@fix adjust this after removing 9
             {
                 case "1":
                     ExploreDoor();
@@ -163,6 +155,13 @@ public class MainRoom
                     backPack.PickUpItemsFromDiscarded();
                     FirstRoomChoices();
                     return; //@fix is this the right thing here?
+                case "9":
+                    string choice = fight.ChooseWeapon(backPack.Pack);
+                    Console.WriteLine($"You chose {choice}");
+                    Console.WriteLine("Press 'enter'");
+                    Console.ReadLine();
+                    FirstRoomChoices();
+                    break;
             }
         }
 
@@ -580,5 +579,7 @@ public class MainRoom
             Console.WriteLine("in your chest.");*/ //@fix rework this
             SuccessfulEscape();
         }
+
+        
     }
 }

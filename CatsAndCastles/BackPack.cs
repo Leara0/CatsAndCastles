@@ -1,17 +1,21 @@
+using System.Runtime.CompilerServices;
+
 namespace CatsAndCastles;
 
 public class BackPack
 {
     public string emptySpot = "a faint outline marking the spot where something once rested";
     public string[] Pack { get; set; } = new string[5];
-    public List<string> DiscardedItems { get; set; } // @fix do I need this code ?= new List<string>() { "" };
+    public List<string> DiscardedItems { get; set; } 
 
     public List<string>
         ListOfAllItemsPickedUp { get; set; } //use this to prevent player from picking up the same object multiple times
 
-    public int[] Wallet { get; set; } = new int[1] { 0 };
+    public int Wallet { get; set; }
+    
+    
 
-    public static string UserChoice(int numberOfOptions = 2)
+    public  string UserChoice(int numberOfOptions = 2)
     {
         do
         {
@@ -85,6 +89,27 @@ public class BackPack
         }
     }
 
+
+    public void PickUpItemsFromDiscarded()
+    {
+        Console.WriteLine("Your discarded stash contains the following item/s:");
+        for (int i = 0; i < DiscardedItems.Count; i++)
+        {
+            Console.WriteLine($"{i + 1} - {DiscardedItems[i]}");
+            
+        }
+        Console.WriteLine($"\nPlease type the number of the item you would like to pick up. " +
+                          $"Or press {DiscardedItems.Count + 1} to return to exploring the room");
+
+        int response = Convert.ToInt32(UserChoice(DiscardedItems.Count + 1));
+
+        if (response < DiscardedItems.Count + 1)
+        {
+            AddItemToPack(DiscardedItems[response - 1]);
+            DiscardedItems.RemoveAt(response - 1);
+        }
+    }
+
     public void RemoveItemsFromPack()
     {
         if (NumberOfItemsInPack() == 0)
@@ -99,11 +124,15 @@ public class BackPack
 
         Console.WriteLine("Please enter the number of the item you would like to remove.");
         var numToRemove = int.Parse(UserChoice(5));
-        if (Pack[numToRemove - 1] != "")
+        var item = Pack[numToRemove - 1];
+
+        if (item != "")
         {
+            
             Console.WriteLine(
-                $"You have removed {Pack[numToRemove - 1]} from your pack. It can now be found in your discard stash.");
-            DiscardedItems.Add(Pack[numToRemove - 1]); // adds removed item to discarded list
+                $"You have removed {item} from your pack. It can now be found in your discard stash.");
+            RemoveMoneyFromWallet(item);
+            DiscardedItems.Add(item); // adds removed item to discarded list
             Pack[numToRemove - 1] = ""; //erases that item by replacing with ""
         }
         else
@@ -115,23 +144,10 @@ public class BackPack
         Console.ReadLine();
     }
 
-    public void PickUpItemsFromDiscarded()
+    public void RemoveMoneyFromWallet(string item)
     {
-        Console.WriteLine("Your discarded stash contains the following item/s:");
-        for (int i = 0; i < DiscardedItems.Count; i++)
-        {
-            Console.WriteLine($"{i + 1} - {DiscardedItems[i]}");
-            Console.WriteLine($"\nPlease type the number of the item you would like to pick up. " +
-                              $"Or press {DiscardedItems.Count + 1} to return to exploring the room");
-        }
-
-        int response = Convert.ToInt32(UserChoice(DiscardedItems.Count + 1));
-
-        if (response < DiscardedItems.Count + 1)
-        {
-            AddItemToPack(DiscardedItems[response - 1]);
-            DiscardedItems.RemoveAt(response - 1);
-        }
+        int money = int.Parse(item.Substring(0, 2));
+        Wallet -= money;
     }
 
     public string AddMoney(string item)
@@ -139,38 +155,13 @@ public class BackPack
         ListOfAllItemsPickedUp
             .Add(item);
 
-        if (item.Contains("five gold coins"))
-            Wallet[0] += 5;
-        if (item.Contains("ten gold coins"))
-            Wallet[0] += 10;
-        if (item.Contains("fifteen gold coins"))
-            Wallet[0] += 15;
+        int money = int.Parse(item.Substring(0, 2));
+        Wallet += money;
 
-        switch (Wallet[0])
-        {
-            case 5:
-                item = "5 gold coins";
-                break;
-            case 10:
-                item = "10 gold coins";
-                break;
-            case 15:
-                item = "15 gold coins";
-                break;
-            case 20:
-                item = "20 gold coins";
-                break;
-            case 25:
-                item = "25 gold coins";
-                break;
-            case 30:
-                item = "30 gold coins";
-                break;
-            case 35:
-                item = "35 gold coins";
-                break;
-        }
-
+        if (Wallet < 10)
+            item = "0" + Wallet + " gold coins";
+        else
+            item = Wallet + " gold coins";
         return item;
     }
 
@@ -200,17 +191,42 @@ public class BackPack
             item = AddMoney(item);
         }
 
-        for (int i = 0; i < Pack.Length; i++) // then add it to an empty space in the pack
-            if (Pack[i] == "")
+        bool goldAlreadyInPack = false;
+        foreach (string thing in Pack)
+        {
+            if (thing.Contains("gold"))
+                goldAlreadyInPack = true;
+        }
+
+        if (goldAlreadyInPack && item.Contains("gold"))
+        {
+            for (int i = 0; i < Pack.Length; i++) // then add it to an empty space in the pack
             {
-                Pack[i] = item;
-                Console.WriteLine($"You pack now contains {item}");
-                ListOfAllItemsPickedUp
-                    .Add(item); //and add the item to the list of all items that have been picked up
-                Console.WriteLine("Press 'enter' to continue");
-                Console.ReadLine();
-                return;
+                if (Pack[i].Contains("gold") && item.Contains("gold"))
+                {
+                    Pack[i] = item;
+                    break;
+                }
             }
+        }
+        else
+        {
+            for (int i = 0; i < Pack.Length; i++)
+            {
+                if (Pack[i] == "")
+                {
+                    Pack[i] = item;
+                    break;
+                }
+            }
+        }
+
+        Console.WriteLine($"You pack now contains {item}");
+        ListOfAllItemsPickedUp
+            .Add(item); //and add the item to the list of all items that have been picked up
+        Console.WriteLine("Press 'enter' to continue");
+        Console.ReadLine();
+        return;
     }
 
     public string[] Options = new string[3];
@@ -231,8 +247,8 @@ public class BackPack
                                   "the shadowy corner.";
                 break;
             case "nightstand":
-                Options[0] = "five gold coins in the drawer";
-                Descriptions[0] = "Five gold coins, their surfaces dull with age but still carrying a " +
+                Options[0] = "10 gold coins in the drawer";
+                Descriptions[0] = "Ten gold coins, their surfaces dull with age but still carrying a " +
                                   "reassuring weight.";
                 Options[1] = "a pair of glasses";
                 Descriptions[1] = "A pair of glasses, their lenses smudged with dust, the frames bent slightly " +
@@ -291,6 +307,7 @@ public class BackPack
                               $"Items that you have removed from your inventory can be found in the discard " +
                               $"stash in the main room.");
 
+            
             switch (UserChoice(4))
             {
                 case "1":
