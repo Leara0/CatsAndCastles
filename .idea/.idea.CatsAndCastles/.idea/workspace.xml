@@ -8,18 +8,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="13d24547-b995-4f31-adef-80ea20e14f14" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/CatsAndCastles/MainStory.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CatsAndCastles/ZZZZZ.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CatsAndCastles/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CatsAndCastles/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CatsAndCastles/Characters.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CatsAndCastles/Characters.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CatsAndCastles/MainRoom.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CatsAndCastles/MainRoom.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CatsAndCastles/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CatsAndCastles/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CatsAndCastles/MainStory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CatsAndCastles/MainStory.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CatsAndCastles/bin/Debug/net9.0/CatsAndCastles.dll" beforeDir="false" afterPath="$PROJECT_DIR$/CatsAndCastles/bin/Debug/net9.0/CatsAndCastles.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CatsAndCastles/bin/Debug/net9.0/CatsAndCastles.exe" beforeDir="false" afterPath="$PROJECT_DIR$/CatsAndCastles/bin/Debug/net9.0/CatsAndCastles.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CatsAndCastles/bin/Debug/net9.0/CatsAndCastles.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/CatsAndCastles/bin/Debug/net9.0/CatsAndCastles.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CatsAndCastles/obj/Debug/net9.0/CatsAndCastles.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CatsAndCastles/obj/Debug/net9.0/CatsAndCastles.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CatsAndCastles/obj/Debug/net9.0/CatsAndCastles.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/CatsAndCastles/obj/Debug/net9.0/CatsAndCastles.AssemblyInfoInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CatsAndCastles/obj/Debug/net9.0/CatsAndCastles.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/CatsAndCastles/obj/Debug/net9.0/CatsAndCastles.csproj.CoreCompileInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CatsAndCastles/obj/Debug/net9.0/CatsAndCastles.dll" beforeDir="false" afterPath="$PROJECT_DIR$/CatsAndCastles/obj/Debug/net9.0/CatsAndCastles.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CatsAndCastles/obj/Debug/net9.0/CatsAndCastles.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/CatsAndCastles/obj/Debug/net9.0/CatsAndCastles.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CatsAndCastles/obj/Debug/net9.0/CatsAndCastles.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/CatsAndCastles/obj/Debug/net9.0/CatsAndCastles.sourcelink.json" afterDir="false" />
@@ -38,28 +34,28 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 8
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="2t0Hj91u1PtngzJiI2bpPP801mu" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Project.CatsAndCastles.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Project.CatsAndCastles.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;test2&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="CatsAndCastles" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />

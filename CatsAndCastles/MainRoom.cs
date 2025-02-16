@@ -22,22 +22,10 @@ public class MainRoom
         } while (true);
     }
 
-    public void RunMainRoom()// I need to return items in backpack, cat name, Discarded items and List of AllPickedUpItems
+    public void RunMainRoom(Characters cat, BackPack backPack, Fight fight)// I need to return items in backpack, cat name, Discarded items and List of AllPickedUpItems
     {
         Console.Clear();
-        Characters cat = new Characters();
-        cat.Name = cat.GetName();
-        BackPack backPack = new BackPack();
-        backPack.Pack = new string[5]; // creates a new pack that holds 5 items 
-        backPack.DiscardedItems = new List<string>(); // create a record of all items that have been discarded 
-        backPack.ListOfAllItemsPickedUp = new List<string>(); //keep track of all items that have been picked up 
-        Fight fight = new Fight();
         
-        for (int i = 0; i < backPack.Pack.Length; i++) // fills back with "" for later checks 
-        {
-            backPack.Pack[i] = "";
-        }
- 
         StoryTime(cat.Name);
 
         void StoryTime(string name)
