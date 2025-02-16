@@ -2,7 +2,7 @@ namespace CatsAndCastles;
 
 public class MainRoom
 {
-    public static string UserChoice(int numberOfOptions = 2)
+    public string UserChoice(int numberOfOptions = 2)
     {
         do
         {
@@ -22,147 +22,83 @@ public class MainRoom
         } while (true);
     }
 
-    public void RunMainRoom()// I need to return items in backpack, cat name, Discarded items and List of AllPickedUpItems
+    public void Intro()
     {
         Console.Clear();
-        Characters cat = new Characters();
-        cat.Name = cat.GetName();
-        BackPack backPack = new BackPack();
-        backPack.Pack = new string[5]; // creates a new pack that holds 5 items 
-        backPack.DiscardedItems = new List<string>(); // create a record of all items that have been discarded 
-        backPack.ListOfAllItemsPickedUp = new List<string>(); //keep track of all items that have been picked up 
-        Fight fight = new Fight();
+        Console.WriteLine("\n   >   >   >   >   >   >   >   >   =^.^=   <   <   <   <   <   <   <   <   <   \n");
+        Console.WriteLine(
+            "Greetings, adventurer. The night has been long and unkind, and your memories of it are ");
+        Console.WriteLine("little more than a haze.");
+    }
+
+    public void FirstWakeUp(string name)
+    {
+        Console.WriteLine("You wake, dazed and disoriented, your senses slow to return as you instinctively ");
+        Console.WriteLine($"groom your soft coat. You feel a collar around your neck and notice a tag ");
+        Console.WriteLine($"with the name \"{name}\" attached. Hmmmm, that name seems faintly familiar? Is it ");
+        Console.WriteLine(
+            "yours? A loved one's? The answer alludes you. You notice you still have your pack that can ");
+        Console.WriteLine("hold 5 items, however, your spirits drop even lower as you realize it is empty. ");
+    }
+
+    public void SubsequentWakeUp()
+    {
+        Console.WriteLine("You wake, dazed and disoriented, your senses slow to return. ");
+        StartInRoom(); //@fix address this
+    }
+
+    public void StartInRoom()
+    {
+        Console.WriteLine("The air is damp and heavy, thick with the scent of old stone and");
+        Console.WriteLine("something faintly metallic. A chill clings to your fur, creeping in from the cold");
+        Console.WriteLine("stone floor beneath you. The dim light from a single flickering torch casts long,");
+        Console.WriteLine("wavering shadows across the chamber, making the jagged cracks in the walls seem");
+        Console.WriteLine("to shift and writhe");
+        Console.WriteLine("The hairs along your spine bristle. Something about this place feels wrong,");
+        Console.WriteLine("as though unseen eyes watch from the darkness, waiting.");
+        Console.WriteLine("You must escape but are unsure where to begin.");
+        Console.WriteLine("Press 'enter' to continue.");
+        Console.WriteLine("\n   >   >   >   >   >   >   >   >   =^.^=   <   <   <   <   <   <   <   <   <   \n");
+        Console.ReadLine();
+    }
+
+    public string FirstRoomOptions(string[] pack, List<string> discardedItems)
+    {
+        Console.Clear();
+        Console.WriteLine("\n   <   <   <   <   <   <   <   <   =^.^=   >   >   >   >   >   >   >   >   >   \n");
+        Console.WriteLine("Your eyes scan the room, taking in the details of your surroundings."
+                          + " \n\nA few places stand out, each offering a chance to learn more:");
+        Console.WriteLine("\n1 - A heavy wooden door, its iron hinges rusted with age.");
+        Console.WriteLine("2 - A second smaller wooden door, it looks as if it has seen little use.");
+        Console.WriteLine("3 - A window, just high enough to reach with a careful leap.");
+        Console.WriteLine("4 - The nightstand, small but perhaps hiding something useful.");
+        Console.WriteLine("5 - The bookshelf, mostly bare, its empty shelves coated in dust.");
+        Console.WriteLine("6 - A large stone hearth, cold and imposing");
+        Console.WriteLine("7 - Your pack. You can inspect the contents and discard ones you no longer want");
+        if (discardedItems.Count == 1) // @fix I made count a method instead of a property not sure it will work
+        {
+            Console.WriteLine("8 - An item you’ve chosen to discard—perhaps too hastily. " +
+                              "If you've changed your mind, you can return to the pile and reclaim it..");
+        }
+
+        if (discardedItems.Count > 1)
+        {
+            Console.WriteLine("8 - A heap of items you’ve chosen to discard—perhaps too hastily. " +
+                              "If you've changed your mind, you can return to the pile and reclaim items..");
+        }
+
+        Console.WriteLine("9 - Check out how strong your inventory items would be in a fight"); //@fix remove this 
+
+        Console.WriteLine("\nWhere would you like to explore?");
+        Console.WriteLine("Please press the number corresponding with your choice.");
+        Console.WriteLine("\n   <   <   <   <   <   <   <   <   =^.^=   >   >   >   >   >   >   >   >   >   \n");
+        return UserChoice(9);
+    }
+
+    public void
+        RunMainRoom() // I need to return items in backpack, cat name, Discarded items and List of AllPickedUpItems
+    {
         
-        for (int i = 0; i < backPack.Pack.Length; i++) // fills back with "" for later checks 
-        {
-            backPack.Pack[i] = "";
-        }
- 
-        StoryTime(cat.Name);
-
-        void StoryTime(string name)
-        {
-            Console.Clear();
-            Console.WriteLine("\n   >   >   >   >   >   >   >   >   =^.^=   <   <   <   <   <   <   <   <   <   \n");
-            Console.WriteLine(
-                "Greetings, adventurer. The night has been long and unkind, and your memories of it are ");
-            Console.WriteLine("little more than a haze.");
-            
-
-            FirstWakeUp(name);
-        }
-
-        void FirstWakeUp(string name)
-        {
-            Console.WriteLine("You wake, dazed and disoriented, your senses slow to return as you instinctively ");
-            Console.WriteLine($"groom your soft coat. You feel a collar around your neck and notice a tag ");
-            Console.WriteLine($"with the name \"{name}\" attached. Hmmmm, that name seems faintly familiar? Is it ");
-            Console.WriteLine(
-                "yours? A loved one's? The answer alludes you. You notice you still have your pack that can ");
-            Console.WriteLine("hold 5 items, however, your spirits drop even lower as you realize it is empty. ");
-            StartInRoom();
-        }
-
-        void SubsequentWakeUp()
-        {
-            Console.WriteLine("You wake, dazed and disoriented, your senses slow to return. ");
-            StartInRoom();
-        }
-
-        void StartInRoom()
-        {
-            Console.WriteLine("The air is damp and heavy, thick with the scent of old stone and");
-            Console.WriteLine("something faintly metallic. A chill clings to your fur, creeping in from the cold");
-            Console.WriteLine("stone floor beneath you. The dim light from a single flickering torch casts long,");
-            Console.WriteLine("wavering shadows across the chamber, making the jagged cracks in the walls seem");
-            Console.WriteLine("to shift and writhe");
-            Console.WriteLine("The hairs along your spine bristle. Something about this place feels wrong,");
-            Console.WriteLine("as though unseen eyes watch from the darkness, waiting.");
-            Console.WriteLine("You must escape but are unsure where to begin.");
-            Console.WriteLine("Press 'enter' to continue.");
-            Console.WriteLine("\n   >   >   >   >   >   >   >   >   =^.^=   <   <   <   <   <   <   <   <   <   \n");
-            Console.ReadLine();
-            FirstRoomChoices();
-        }
-
-        void FirstRoomChoices()
-        {
-            Console.Clear();
-            Console.WriteLine("\n   <   <   <   <   <   <   <   <   =^.^=   >   >   >   >   >   >   >   >   >   \n");
-            Console.WriteLine("Your eyes scan the room, taking in the details of your surroundings."
-                              + " \n\nA few places stand out, each offering a chance to learn more:");
-            Console.WriteLine("\n1 - A heavy wooden door, its iron hinges rusted with age.");
-            Console.WriteLine("2 - A second smaller wooden door, it looks as if it has seen little use.");
-            Console.WriteLine("3 - A window, just high enough to reach with a careful leap.");
-            Console.WriteLine("4 - The nightstand, small but perhaps hiding something useful.");
-            Console.WriteLine("5 - The bookshelf, mostly bare, its empty shelves coated in dust.");
-            Console.WriteLine("6 - A large stone hearth, cold and imposing");
-            Console.WriteLine("7 - Your pack. You can inspect the contents and discard ones you no longer want");
-            if (backPack.DiscardedItems.Count == 1)
-            {
-                Console.WriteLine("8 - An item you’ve chosen to discard—perhaps too hastily. " +
-                                  "If you've changed your mind, you can return to the pile and reclaim it..");
-            }
-
-            if (backPack.DiscardedItems.Count > 1)
-            {
-                Console.WriteLine("8 - A heap of items you’ve chosen to discard—perhaps too hastily. " +
-                                  "If you've changed your mind, you can return to the pile and reclaim items..");
-            }
-            Console.WriteLine("9 - Check out how strong your inventory items would be in a fight");//@fix remove this 
-
-            Console.WriteLine("\nWhere would you like to explore?");
-            Console.WriteLine("Please press the number corresponding with your choice.");
-            Console.WriteLine("\n   <   <   <   <   <   <   <   <   =^.^=   >   >   >   >   >   >   >   >   >   \n");
-
-            switch (UserChoice(9))//@fix adjust this after removing 9
-            {
-                case "1":
-                    ExploreDoor();
-                    break;
-                case "2":
-                    ExploreCloset(); //@done 
-                    break;
-                case "3":
-                    ExploreWindow(); //@done
-                    break;
-                case "4":
-                    ExploreNightStand(); //@done
-                    break;
-                case "5":
-                    ExploreBookshelf(); //@done
-                    break;
-                case "6":
-                    ExploreHearth(); //@done
-                    break;
-                case "7":
-                    backPack.ListContentsOfPack();
-                    Console.WriteLine("Would you like to remove any items?" +
-                                      "\nPlease press '1' to remove an item and '2' to continue exploring the room");
-                    while (UserChoice() == "1")
-                    {
-                        backPack.RemoveItemsFromPack();
-                        backPack.ListContentsOfPack();
-                        Console.WriteLine("Would you like to remove another item?" +
-                                          "\n Press '1' to remove another item and '2' to continue exploring the room");
-                    }
-
-                    FirstRoomChoices();
-                    break;
-                case "8":
-                    backPack.PickUpItemsFromDiscarded();
-                    FirstRoomChoices();
-                    return; //@fix is this the right thing here?
-                case "9":
-                    string choice = fight.ChooseWeapon(backPack.Pack);
-                    Console.WriteLine($"You chose {choice}");
-                    Console.WriteLine("Press 'enter'");
-                    Console.ReadLine();
-                    FirstRoomChoices();
-                    break;
-            }
-        }
-
         void ReturnToMainPartOfRoom(string fromLocation)
         {
             Console.WriteLine(
@@ -577,7 +513,5 @@ public class MainRoom
             Console.WriteLine("in your chest.");*/ //@fix rework this
             SuccessfulEscape();
         }
-
-        
     }
 }
