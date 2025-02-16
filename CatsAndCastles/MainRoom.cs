@@ -22,26 +22,23 @@ public class MainRoom
         } while (true);
     }
 
-    public static void RunGame()
+    public void RunMainRoom()// I need to return items in backpack, cat name, Discarded items and List of AllPickedUpItems
     {
         Console.Clear();
         Characters cat = new Characters();
-        var name = cat.GetName();
-        cat.Status = "in room";//@fix options at end will be passed out, outside, or in hall
-        
+        cat.Name = cat.GetName();
         BackPack backPack = new BackPack();
         backPack.Pack = new string[5]; // creates a new pack that holds 5 items 
         backPack.DiscardedItems = new List<string>(); // create a record of all items that have been discarded 
         backPack.ListOfAllItemsPickedUp = new List<string>(); //keep track of all items that have been picked up 
-
-        Fight fight = new Fight();// @fix move this to the main story when I get that fixed
+        Fight fight = new Fight();
         
         for (int i = 0; i < backPack.Pack.Length; i++) // fills back with "" for later checks 
         {
             backPack.Pack[i] = "";
         }
-
-        StoryTime(name);
+ 
+        StoryTime(cat.Name);
 
         void StoryTime(string name)
         {
@@ -50,6 +47,7 @@ public class MainRoom
             Console.WriteLine(
                 "Greetings, adventurer. The night has been long and unkind, and your memories of it are ");
             Console.WriteLine("little more than a haze.");
+            
 
             FirstWakeUp(name);
         }
