@@ -14,6 +14,7 @@ public class BackPack
     public int Wallet { get; set; }
     
     
+    
 
     public  string UserChoice(int numberOfOptions = 2)
     {
@@ -131,7 +132,8 @@ public class BackPack
             
             Console.WriteLine(
                 $"You have removed {item} from your pack. It can now be found in your discard stash.");
-            RemoveMoneyFromWallet(item);
+            if (item.Contains("gold"))
+                RemoveMoneyFromWallet(item);
             DiscardedItems.Add(item); // adds removed item to discarded list
             Pack[numToRemove - 1] = ""; //erases that item by replacing with ""
         }
