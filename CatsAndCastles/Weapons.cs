@@ -21,6 +21,8 @@ public class Weapons
                 modifier = 2;
                 die = 8;
                 break;
+            case "a club":
+            case "a bone":
             case "the fire poker":
                 modifier = 2;
                 die = 6;
@@ -34,6 +36,7 @@ public class Weapons
                 modifier = 0;
                 die = 0;
                 break;
+
             case "paws":
                 modifier = 0;
                 die = 4;
