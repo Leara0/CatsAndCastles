@@ -7,7 +7,7 @@ public class SecondFloor
     public void SecondFloorStory(Characters cat, BackPack backPack, Characters guardDog)
     {
         cat.SuccessfulBribed = false;
-        
+
         Console.WriteLine("You reach the second floor, your paws light against the cold stone. The hallway " +
                           "stretches before you, nearly identical to the one above. Four doors line the hallway, " +
                           "each one marked with a number — just like on the previous floor." +
@@ -52,6 +52,9 @@ public class SecondFloor
                                       $"{(backPack.Pack.Contains("the ring of keys") ? "You try the keys you got from " +
                                           "the guard but none work" : "")}" +
                                       "\n\nWith no other choice, you step back into the hallway. What will you do next?");
+                    Console.WriteLine("\nPress 'enter' to continue...");
+                    Console.ReadLine();
+                    Console.Clear();
                     break;
                 case "3": //need keys
                     Console.WriteLine("You stand in the hall, eyeing Door 3. Testing the handle—locked.");
@@ -65,7 +68,7 @@ public class SecondFloor
                     break;
                 case "4": //guard dog
                     Room4(cat, backPack, guardDog);
-                    if (cat.Location == Characters.Place.Dead)
+                    if (cat.Location == Characters.Place.PassedOut)
                         return;
                     break;
                 case "5": // go downstairs
@@ -78,12 +81,16 @@ public class SecondFloor
                     Console.ReadLine();
                     cat.SuccessfulBribed = false;
                     cat.Location = Characters.Place.FirstFloor;
+                    Console.Clear();
                     return;
                 case "6":
                     Console.WriteLine("You turn and head back toward the stairs, making your way up. You feel there" +
                                       "must be something you missed and are eager to retrace your steps.");
                     cat.SuccessfulBribed = false;
                     cat.Location = Characters.Place.ThirdFloor;
+                    Console.WriteLine("Press 'enter' to continue...");
+                    Console.ReadLine();
+                    Console.Clear();
                     return;
                 case "7":
                     backPack.ListContentsOfPack();
@@ -102,7 +109,7 @@ public class SecondFloor
                         "once again lay before you.");
                     break;
             }
-        } while (true); // keeps going until the cat goes upstairs, downstairs or dies
+        } while (true); // keeps going until the cat goes upstairs, downstairs or passes out
     }
 
     public void EnterRoom(Characters cat, BackPack backPack, string room)
@@ -172,10 +179,12 @@ public class SecondFloor
     void Room4(Characters cat, BackPack backPack, Characters guardDog)
     {
         if (guardDog.Location != Characters.Place.Dead && !cat.SuccessfulBribed)
+            //if you haven't defeated or bribed the guard yet
         {
             Fight.GuardDogEncounter(cat, backPack, guardDog, 1);
-            if ((guardDog.Location != Characters.Place.Dead && !cat.SuccessfulBribed)||
-                cat.Location == Characters.Place.Dead)// if you successfully run away or die
+            if ((guardDog.Location != Characters.Place.Dead && !cat.SuccessfulBribed) ||
+                cat.Location ==
+                Characters.Place.PassedOut) // if you successfully run away or get knocked out leave this room
                 return;
         }
 
@@ -191,6 +200,7 @@ public class SecondFloor
         if (guardDog.Location == Characters.Place.Dead)
             Console.WriteLine("The guard’s fallen form lies nearby, a silent testament to the battle " +
                               "you just fought.");
+        
         var stayInRoom = true;
         do
         {
@@ -199,16 +209,19 @@ public class SecondFloor
                 "surviving what lies ahead...");
             Console.Write("\nPlease make a choice:" +
                           "\nPress '1' if you'd like to take some items from this room with you." +
-                          "Press '2' if you'd like to leave all the items untouched and return to the hall.");
+                          "Press '2' if you'd like to return to the hall.");
             if (guardDog.Location == Characters.Place.Dead)
                 Console.WriteLine(
                     "Press '3' if you'd like to return to the guard's body to see if you missed " +
                     "anything");
+            
             switch (backPack.UserChoice(3))
             {
                 case "1":
                     backPack.TakeItems(cat, "second floor room 4");
-                    return;//need to return because TakeItems method ends with you leaving that room/area
+                    Console.WriteLine("You've taken what you like from this room for now. You head towards the door " +
+                                      "but take another look around.");
+                    break;
                 case "2":
                     stayInRoom = false;
                     break;
@@ -219,8 +232,7 @@ public class SecondFloor
                         Console.WriteLine("That is not a valid selection.");
                     break;
             }
-        } while (stayInRoom);
-
+        } while (stayInRoom); 
         Console.WriteLine("Feeling done with this room you return to the hall");
     }
 }

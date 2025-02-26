@@ -119,9 +119,9 @@ public class MainStory
         if (cat.LostToGuard)
         {
             Console.WriteLine("\nIf you choose to return, the guard will still bear the wounds you inflicted. " +
-                              "Will not regain his strength.");
+                              "They will not regain his strength.");
         }
-        Console.WriteLine($"\n\nA choice stands before you:" +
+        Console.WriteLine($"\nA choice stands before you:" +
             $"\n\n1. Revive in the room you first woke in and try again to escape." +
             $"\n2. Accept defeat and let the darkness claim you. (End Game.)" +
             $"\n\nWhat will you do?... \n");

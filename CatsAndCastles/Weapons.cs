@@ -62,7 +62,6 @@ public class Weapons
             case "the crude shield":
             case "the worn shield":
             case "the sturdy shield":
-                ;
                 return 2;
             default:
                 return 0;

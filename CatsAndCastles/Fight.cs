@@ -40,8 +40,8 @@ public class Fight
                 "but where will you go next? "
             },
             {
-                "A massive dog, larger than any you’ve seen, clad in dark, battered armor. Its fur is matted, its " +
-                "ears torn from past battles," +
+                "\nAhead stands a massive dog, larger than any you’ve seen, clad in dark, battered armor . Its fur " +
+                "is matted and its ears are torn from past battles." +
                 "\n\nThis isn’t some simple guard. This is the Warden. His hulking form blocks your only obvious " +
                 "route out. The Warden's eyes don't move as you approach. You know you only have seconds, " +
                 "before he’ll notice you.",
@@ -55,9 +55,9 @@ public class Fight
                 "noticed your departure. The silence around you confirms that, for now, you're safe."
             }
         };
-        GuardDog(cat, backPack, guardDog, guardNumber);
+        GuardDog();
 
-        void GuardDog(Characters cat, BackPack backPack, Characters guardDog, int guardNumber)
+        void GuardDog()
         {
             cat.Caught = false;
             Console.WriteLine(floorSpecificWording[guardNumber, 0]);
@@ -67,40 +67,46 @@ public class Fight
                     "You have a choice: - Engage the massive warden in combat, risking it all to fight (or bribe) your " +
                     "way through to the exit. Or sneak back up the stairs to continue exploring the castle " +
                     "for another way to escape. " +
-                    "\n\nWhat will you do? " +
                     "\n\nPress '1' to engage in combat." +
-                    "\nPress '2' to attempt to carefully slip away.");
+                    $"\nPress '2' to attempt to bribe the guard - you have {backPack.Wallet} gold coins" +
+                    "\nPress '3' to carefully attempt to slip away.");
             else
             {
                 Console.WriteLine($"\nYou have a choice: do you engage the guard or do you flee");
                 Console.WriteLine(
                     "\nPress '1' to engage the guard, risking a fight but possibly gaining valuable loot." +
-                    "\nPress '2' to carefully step away, leaving him undisturbed and continuing your exploration " +
+                    "\nPress '2' to attempt to bribe the guard, trusting your coin to buy you time to explore while" +
+                    $"you explore this floor.- you have {backPack.Wallet} gold coins" +
+                    "\nPress '3' to carefully step away, leaving him undisturbed and continuing your exploration " +
                     "elsewhere");
             }
 
-            switch (backPack.UserChoice())
+            switch (backPack.UserChoice(3))
             {
                 case "1":
-                    EngageDog(cat, backPack, guardDog);
+                    Combat();
                     break;
                 case "2":
+                    AttemptBribe();
+                    break;
+                case "3":
                     Console.WriteLine(floorSpecificWording[guardNumber, 1]);
                     var roll = rnd.Next(1, 21);
                     Console.WriteLine(
-                        $"\nRoll a D20 for luck. You must get higher than {(guardNumber == 2 ? "5" : "15")} " +
+                        $"\nRoll a D20 for luck. You must get higher than {(guardNumber == 1 ? "5" : "10")} " +
                         $"to successfully sneak away");
                     Console.WriteLine("Press 'enter' to continue");
                     Console.ReadLine();
                     Console.WriteLine($"You roll a {roll}.\n");
-                        
-                    if ((guardNumber == 1 && roll > 5) || (guardNumber == 0 || guardNumber == 2) && roll < 21)//@fix back to >15
+
+                    if ((guardNumber == 1 && roll > 5) ||
+                        (guardNumber != 1 && roll > 10))
                     {
                         Console.WriteLine(floorSpecificWording[guardNumber, 2]);
                         Console.WriteLine("Press 'enter' to continue");
                         Console.ReadLine();
                         Console.Clear();
-                        if (guardNumber == 0 || guardNumber == 2)
+                        if (guardNumber != 1)
                             cat.Location = Characters.Place.SecondFloor;
                     }
                     else
@@ -110,7 +116,7 @@ public class Fight
                             $"Then—barking. You've been caught and the quick {(guardNumber == 2 ? "warden" : "guard")} " +
                             $"now has the advantage of attacking first.");
                         cat.Caught = true;
-                        EngageDog(cat, backPack, guardDog);
+                        Combat();
                     }
 
                     break;
@@ -118,7 +124,7 @@ public class Fight
         }
 
 
-        void EngageDog(Characters cat, BackPack backPack, Characters guardDog)
+        void AttemptBribe()
         {
             var hasGold = false;
 
@@ -132,33 +138,19 @@ public class Fight
 
             if (hasGold)
             {
-                Console.WriteLine(
-                    $"\nYou remember the gold coins in your pack. You have {backPack.Wallet} gold coins. " +
-                    $"You could try to bribe the {(guardNumber == 2 ? "warden" : "guard")}, " +
-                    "offering the coins in hopes it will ignore your presence and let you go. " +
-                    "It might work, but there’s no guarantee—this is no ordinary guard." +
-                    "\n\nPress '1' to attempt to bribe the dog so it will turn a blind eye as " +
-                    $"you {(guardNumber == 2 ? "continue to the exit" : "explore")}." +
-                    "\nPress '2' to prepare to engage in combat and face them head-on.\");");
-                if (backPack.UserChoice() == "1")
-                {
-                    cat.SuccessfulBribed = Bribe(backPack);
-                    if (!cat.SuccessfulBribed)
-                        Combat(cat, guardDog, backPack);
-                }
-                else
-                    Combat(cat, guardDog, backPack);
+                cat.SuccessfulBribed = Bribe();
+                if (!cat.SuccessfulBribed)
+                    Combat();
             }
             else
             {
                 Console.WriteLine("You consider attempting to bribe the guard but then remember you have no coins. " +
                                   "You prepare to engage in combat with the guard dog\n");
-                Combat(cat, guardDog, backPack);
+                Combat();
             }
         }
 
-
-        bool Bribe(BackPack backPack)
+        bool Bribe()
             //@add maybe make it so that if you are unsuccessful at a bribe attempt the dog fights harder (+1 damage?) 
         {
             var bribeGuard = rnd.Next(20, 35);
@@ -166,7 +158,7 @@ public class Fight
             var bribable = rnd.Next(1, 21);
 
             Console.WriteLine(
-                "You clear your throat just enough to get its attention. The dog’s ears perk up, and it " +
+                "\nYou clear your throat just enough to get its attention. The dog’s ears perk up, and it " +
                 "spins around, baring its teeth in surprise. For a moment, it just stares at you, " +
                 "blinking, as if trying to process why you are standing here instead of locked away." +
                 "\n\nBefore it can react, you flick your tail and speak. \"Let’s not make this difficult. " +
@@ -204,16 +196,18 @@ public class Fight
                             backPack.Wallet -= bribeWarden;
                         else
                             backPack.Wallet -= bribeGuard;
-                        
+
                         return true;
                     }
-                    return false; //return false if player does't want to pay the bribe
+
+                    return false; //return false if player doesn't want to pay the bribe
                 }
+
                 Console.WriteLine("\nYou glance down at your pack, pawing through its contents. Your claws scrape " +
                                   "against the coins at the bottom, but as you count them, your stomach sinks. " +
                                   $"{backPack.Wallet} gold coins - not enough. \n\nYou look up, meeting its gaze. " +
                                   "It already knows." +
-                                  $"\n\nThe {(guardNumber==2 ?"warden":"guard")} steps forward, teeth bared, " +
+                                  $"\n\nThe {(guardNumber == 2 ? "warden" : "guard")} steps forward, teeth bared, " +
                                   $"hackles raised. \"Guess we’re doing this " +
                                   "the hard way.\"" +
                                   "\n\nYou have no choice now — you must fight.");
@@ -230,13 +224,15 @@ public class Fight
         }
 
 
-        void Combat(Characters cat, Characters guardDog, BackPack backPack)
+        void Combat()
         {
             var guardMaxHealth = guardDog.Health;
-            string[] weaponAndShield = ChooseWeapon(backPack);
+            string[] weaponAndShield = ChooseWeapon();
             cat.Weapon = weaponAndShield[0];
             if (weaponAndShield[1] == "1")
                 cat.HasShield = true;
+            else
+                cat.HasShield = false;
 
             guardDog.Weapon = ChooseGuardDogWeapon();
             if (rnd.Next(1, 11) > 8)
@@ -246,13 +242,12 @@ public class Fight
             // cat and guardDog have Health and Weapons
 
             Console.WriteLine(
-                "All your choices have lead to this moment. You've chosen your weapon — or perhaps you trust " +
-                "in your claws alone. Either way, there is no turning back." +
+                "All your choices and luck have lead to this moment - there is no turning back." +
                 "\n\nThe guard dog snarls, its stance low and ready to strike. It's just you " +
                 "and the beast, locked in a battle for survival." +
                 "\n\nThe air is thick with tension. The dog's muscles bunch, its eyes locked onto you. " +
                 "The fight is about to begin." +
-                $"\n\nThe {(guardNumber==2?"warden":"guard")}'s health is {guardDog.Health}." +
+                $"\n\nThe {(guardNumber == 2 ? "warden" : "guard")}'s health is {guardDog.Health}. " +
                 $"\nYour health is {cat.Health}.");
 
             WeaponsReminder(cat, "cat");
@@ -260,43 +255,52 @@ public class Fight
             Console.WriteLine("Press 'enter' to continue.");
             Console.ReadLine();
 
+            int attack;
             if (cat.Caught)
             {
-                var attack = Attack(guardDog, rnd);
+                attack = Attack(guardDog);
                 cat.Health -= attack;
-                Console.Write($"\nThe guard dog attacks you doing {attack} damage. ");
+                Console.Write($"\nThe guard dog attacks first doing {attack} damage. ");
                 if (cat.HasShield)
                 {
                     Console.Write("Your shield deflects 1 damage");
                     cat.Health++;
                 }
 
-                
+                Console.WriteLine($"\nYour remaining health is {(Math.Max(cat.Health, 0))} out of 60");
+
+
                 if (cat.Health > 0)
                 {
                     Console.WriteLine("Please press 'enter' to continue.");
+                    Console.WriteLine(
+                        "\n   -   -   -   -   -   -   -   -   =^.^=   -   -   -   -   -   -   -   -   -   -   \n");
                     Console.ReadLine();
                 }
             }
 
             do
             {
-                var attack = Attack(cat, rnd);
+                attack = Attack(cat);
                 guardDog.Health -= attack;
-                Console.WriteLine($"You attack doing {attack} damage.");
+                Console.Write($"\nYou attack doing {attack} damage. ");
                 if (guardDog.HasShield)
+                {
+                    Console.Write("Their shield deflects 1 damage.");
                     guardDog.Health++;
-                Console.WriteLine($"The {(guardNumber==2?"warden":"guard")}'s remaining health is " +
+                }
+
+                Console.WriteLine($"\nThe {(guardNumber == 2 ? "warden" : "guard")}'s remaining health is " +
                                   $"{Math.Max(guardDog.Health, 0)} out of {guardMaxHealth}");
                 if (guardDog.Health <= 0)
                 {
                     Console.WriteLine("\nYou are victorious in the fight against the guard");
                     guardDog.Location = Characters.Place.Dead;
-                    LootBody(cat, backPack, guardDog, guardNumber);
+                    LootBody();
                     return;
                 }
 
-                attack = Attack(guardDog, rnd);
+                attack = Attack(guardDog);
                 cat.Health -= attack;
                 Console.Write($"\nThe guard dog attacks you doing {attack} damage. ");
                 if (cat.HasShield)
@@ -308,25 +312,26 @@ public class Fight
                 Console.WriteLine($"\nYour remaining health is {(cat.Health >= 0 ? cat.Health : "0")} out of 60");
                 if (cat.Health > 0)
                 {
-                    Console.WriteLine("Please press 'enter' to continue.");
+                    Console.WriteLine("\nPlease press 'enter' to continue.");
+                    Console.WriteLine(
+                        "\n   -   -   -   -   -   -   -   -   =^.^=   -   -   -   -   -   -   -   -   -   -   \n");
                     Console.ReadLine();
                 }
-                Console.WriteLine(
-                    "\n   -   -   -   -   -   -   -   -   =^.^=   -   -   -   -   -   -   -   -   -   -   \n");
             } while (cat.Health > 0);
 
             if (cat.Health <= 0)
             {
-                Console.WriteLine("The guard has been victorious in this fight\n");
+                Console.WriteLine("\nThe guard has been victorious in this fight\n");
                 cat.Location = Characters.Place.PassedOut;
             }
         }
 
 
-        void LootBody(Characters cat, BackPack backPack, Characters guardDog, int guardNumber)
+        void LootBody()
         {
-            Console.WriteLine("\nIt lies still at your paws. You take a moment to search the body, uncovering:");
-            string guardLocation ="";
+            Console.WriteLine("\nYou stand over the fallen guard, the echoes of battle slowly fading. His motionless " +
+                              "body lies before you, and you notice several items that might aid you on your journey:");
+            string guardLocation = "";
             switch (guardNumber)
             {
                 case 0:
@@ -339,7 +344,7 @@ public class Fight
                     guardLocation = "guard three";
                     break;
             }
-            
+
             backPack.AssignItemsBasedOnLocation(guardLocation, guardDog);
             for (int i = 0; i < backPack.Options.Length; i++)
             {
@@ -348,7 +353,10 @@ public class Fight
                 Console.WriteLine($"- {backPack.Descriptions[i]}");
             }
 
-            Console.WriteLine("Press '1' to loot and '2' to move on.");
+            Console.WriteLine("You have a choice: loot the body now and gather any supplies that might be useful, " +
+                              "or leave the guard's remains undisturbed for the moment. Remember, if you choose not to " +
+                              "take anything right now, you can always return later to search his body again.. " +
+                              "\n\nPress '1' to loot and '2' to move on. ");
             if (backPack.UserChoice() == "1")
             {
                 backPack.TakeItems(cat, guardLocation, guardDog);
@@ -357,7 +365,7 @@ public class Fight
             Console.WriteLine("You leave the corpse.");
         }
 
-        int Attack(Characters attacker, Random rnd)
+        int Attack(Characters attacker)
         {
             int[] weaponStats = weapon.WeaponChoice(attacker.Weapon);
             return rnd.Next(1, weaponStats[0] + 1) + weaponStats[1];
@@ -390,7 +398,7 @@ public class Fight
         }
 
 
-        string[] ChooseWeapon(BackPack backPack)
+        string[] ChooseWeapon()
         {
             Console.WriteLine("You quickly check your inventory, assessing what you have and what might help you in " +
                               "battle?\n");
@@ -402,8 +410,8 @@ public class Fight
 
             for (int i = 0; i < backPack.Pack.Length; i++) // shows inventory with weapons modifiers
             {
-                if (backPack.Pack[i] == "")
-                    backPack.Pack[i] = "empty";
+                //if (backPack.Pack[i] == "") // i'm pretty sure this code is obsolete
+                //    backPack.Pack[i] = "empty";
                 int[] weaponStats = weapon.WeaponChoice(backPack.Pack[i]);
                 Console.WriteLine($"{i + 1} - {backPack.Pack[i]}: D{weaponStats[0]} +{weaponStats[1]}");
             }
@@ -420,11 +428,20 @@ public class Fight
                 choice = "paws";
             }
 
+            if (weapon.WeaponChoice(choice)[0] == 0)
+            {
+                Console.WriteLine(
+                    $"Your paws are more deadly than {choice}. You wisely choose to fight with your paws: D4 +0");
+                choice = "paws";
+            }
+            else
+                Console.WriteLine($"You have chosen to fight with {choice}.");
+
             var hasShield = "";
             bool shieldInPack = false;
-            for (int i = 0; i < backPack.Pack.Length; i++)
+            foreach (var item in backPack.Pack)
             {
-                if (weapon.DefenseChoice(backPack.Pack[i]) == 2)
+                if (weapon.DefenseChoice(item) == 2)
                     shieldInPack = true;
             }
 
@@ -437,12 +454,6 @@ public class Fight
                     hasShield = "1";
             }
 
-            if (weapon.WeaponChoice(choice)[0] == 0)
-            {
-                Console.WriteLine(
-                    $"Your paws are more deadly than {choice}. You wisely choose to fight with your paws: D4 +0");
-                choice = "paws";
-            }
 
             return [choice, hasShield];
         }

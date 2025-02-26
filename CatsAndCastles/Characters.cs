@@ -20,18 +20,20 @@ public class Characters
 
     public Place Location { get; set; }
     // I'll use this to tell where the player is (passed out, third floor, second floor, first floor, outside castle)
-    public bool Caught { get; set; } = false;
-    public bool SuccessfulBribed { get; set; } = false;
-    public bool EndGame { get; set; } = false;
+    public bool Caught { get; set; }
+    public bool SuccessfulBribed { get; set; } 
+    public bool EndGame { get; set; } 
     public bool HasShield { get; set; }
 
-    public bool LostToGuard { get; set; } = false;
+    public bool LostToGuard { get; set; }
 
     public int SetHealth(int bottom, int top)
     {
         var rnd = new Random();
         return rnd.Next(bottom, top + 1);
     }
+
+    public bool LeftFirstFloor { get; set; }
 
     public string GetName()
     {

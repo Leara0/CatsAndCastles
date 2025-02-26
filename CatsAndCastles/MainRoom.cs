@@ -1,4 +1,4 @@
-using System.Diagnostics;
+
 
 namespace CatsAndCastles;
 
@@ -327,7 +327,7 @@ public class MainRoom
                             "\nPlease press '1' to choose to leap down and '2' to continue exploring other areas in the room.");
                         Console.WriteLine(
                             "\n   -   -   -   -   -   -   -   -   =^.^=   -   -   -   -   -   -   -   -   -   -   \n");
-                        if (UserChoice(2) == "1")
+                        if (UserChoice() == "1")
                             JumpDown();
                         else
                             ReturnToMainPartOfRoom("door");

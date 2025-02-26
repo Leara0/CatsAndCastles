@@ -1,4 +1,4 @@
-using System.Data;
+
 
 namespace CatsAndCastles;
 
@@ -24,9 +24,12 @@ public class ThirdFloor
         {
             // if the guard is not dead & not bribed you must deal with him 
             Fight.GuardDogEncounter(cat, backPack, guardDog1, 0);
-            if (cat.Location == Characters.Place.SecondFloor)
+            if (cat.Location == Characters.Place.SecondFloor || cat.Location == Characters.Place.PassedOut)
+                //// if you successfully run away (to floor 2) or get knocked out
                 return;
+            
             Console.WriteLine("You have dealt with the guard and now must choose you're next move.");
+            
         }
 
         do
@@ -77,6 +80,7 @@ public class ThirdFloor
                                       "descend, the stairwell opens up to new, uncertain territory.");
                     Console.WriteLine("\nPress 'enter' to continue...");
                     Console.ReadLine();
+                    Console.Clear();
                     cat.Location = Characters.Place.SecondFloor;
                     return;
                 case "6":
