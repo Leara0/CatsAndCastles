@@ -21,6 +21,10 @@ public class Weapons
                 modifier = 2;
                 die = 8;
                 break;
+            case "the long dagger":
+                modifier = 3;
+                die = 8;
+                break;
             case "a club":
             case "a bone":
             case "the fire poker":
@@ -29,6 +33,7 @@ public class Weapons
                 break;
             case "the large stone":
             case "the shield":
+            case "the battered shield":
                 modifier = 1;
                 die = 6;
                 break;
@@ -36,10 +41,13 @@ public class Weapons
                 modifier = 0;
                 die = 0;
                 break;
-
             case "paws":
                 modifier = 0;
                 die = 4;
+                break;
+            case "the short sword":
+                modifier = 1;
+                die = 10;
                 break;
         }
 
@@ -48,8 +56,15 @@ public class Weapons
 
     public int DefenseChoice(string defense)
     {
-        if (defense == "the shield")
-            return 2;
-        return 0;
+        switch (defense)
+        {
+            case "the shield":
+            case "the crude shield":
+            case "the worn shield":
+            case "the sturdy shield":
+                return 2;
+            default:
+                return 0;
+        }
     }
 }

@@ -1,3 +1,5 @@
+
+
 namespace CatsAndCastles;
 
 public class MainRoom
@@ -6,7 +8,7 @@ public class MainRoom
     {
         do
         {
-            string input = Console.ReadLine();
+            string input = Console.ReadLine().Trim();
             for (int i = 1; i <= numberOfOptions; i++)
             {
                 string iNumber = i.ToString();
@@ -26,29 +28,19 @@ public class MainRoom
     {
         Console.Clear();
 
-        StoryTime(cat.Name);
+        Console.Clear();
+        Console.WriteLine("\n   >   >   >   >   >   >   >   >   =^.^=   <   <   <   <   <   <   <   <   <   \n");
+        Console.WriteLine(
+            "Greetings, adventurer. The night has been long and unkind, and your memories of it are ");
+        Console.WriteLine("little more than a haze.");
 
-        void StoryTime(string name)
-        {
-            Console.Clear();
-            Console.WriteLine("\n   >   >   >   >   >   >   >   >   =^.^=   <   <   <   <   <   <   <   <   <   \n");
-            Console.WriteLine(
-                "Greetings, adventurer. The night has been long and unkind, and your memories of it are ");
-            Console.WriteLine("little more than a haze.");
-
-            FirstWakeUp(name);
-        }
-
-        void FirstWakeUp(string name)
-        {
-            Console.WriteLine("You wake, dazed and disoriented, your senses slow to return as you instinctively ");
-            Console.WriteLine($"groom your soft coat. You feel a collar around your neck and notice a tag ");
-            Console.WriteLine($"with the name \"{name}\" attached. Hmmmm, that name seems faintly familiar? Is it ");
-            Console.WriteLine(
-                "yours? A loved one's? The answer alludes you. You notice you still have your pack that can ");
-            Console.WriteLine("hold 5 items, however, your spirits drop  as you realize it is empty. ");
-            MainRoomMethod(cat, backPack);
-        }
+        Console.WriteLine("\nYou wake, dazed and disoriented, your senses slow to return as you instinctively ");
+        Console.WriteLine($"groom your soft coat. You feel a collar around your neck and notice a tag ");
+        Console.WriteLine($"with the name \"{cat.Name}\" attached. Hmmmm, that name seems faintly familiar? Is it ");
+        Console.WriteLine(
+            "yours? A loved one's? The answer alludes you. You notice you still have your pack that can ");
+        Console.WriteLine("hold 5 items, however, your spirits drop  as you realize it is empty. ");
+        StartInRoom(cat, backPack);
     }
 
 
@@ -56,33 +48,44 @@ public class MainRoom
     {
         cat.Health = 60;
         Console.WriteLine("You wake, dazed and disoriented, your senses slow to return. ");
+        StartInRoom(cat, backPack);
+    }
+
+    public static void StartInRoom(Characters cat, BackPack backPack)
+    {
+        Console.WriteLine("The air is damp and heavy, thick with the scent of old stone and");
+        Console.WriteLine("something faintly metallic. A chill clings to your fur, creeping in from the cold");
+        Console.WriteLine("stone floor beneath you. The dim light from a single flickering torch casts long,");
+        Console.WriteLine("wavering shadows across the chamber, making the jagged cracks in the walls seem");
+        Console.WriteLine("to shift and writhe");
+        Console.WriteLine("The hairs along your spine bristle. Something about this place feels wrong,");
+        Console.WriteLine("as though unseen eyes watch from the darkness, waiting.");
+        Console.WriteLine("You must escape but are unsure where to begin.");
+        Console.WriteLine("Press 'enter' to continue.");
+        Console.WriteLine("\n   >   >   >   >   >   >   >   >   =^.^=   <   <   <   <   <   <   <   <   <   \n");
+        Console.ReadLine();
+        MainRoomMethod(cat, backPack);
+    }
+
+    public void RestartMainRoom(Characters cat, BackPack backPack)
+    {
         MainRoomMethod(cat, backPack);
     }
 
     public static void MainRoomMethod(Characters cat, BackPack backPack)
     {
-        cat.Status = "";
-        cat.NotEscapedCastle = true;
-        StartInRoom();
+        cat.Location = Characters.Place.MainRoom;
+        cat.EndGame = false;
+        FirstRoomChoices();
+        
 
-        void StartInRoom()
-        {
-            Console.WriteLine("The air is damp and heavy, thick with the scent of old stone and");
-            Console.WriteLine("something faintly metallic. A chill clings to your fur, creeping in from the cold");
-            Console.WriteLine("stone floor beneath you. The dim light from a single flickering torch casts long,");
-            Console.WriteLine("wavering shadows across the chamber, making the jagged cracks in the walls seem");
-            Console.WriteLine("to shift and writhe");
-            Console.WriteLine("The hairs along your spine bristle. Something about this place feels wrong,");
-            Console.WriteLine("as though unseen eyes watch from the darkness, waiting.");
-            Console.WriteLine("You must escape but are unsure where to begin.");
-            Console.WriteLine("Press 'enter' to continue.");
-            Console.WriteLine("\n   >   >   >   >   >   >   >   >   =^.^=   <   <   <   <   <   <   <   <   <   \n");
-            Console.ReadLine();
-            FirstRoomChoices();
-        }
 
         void FirstRoomChoices()
         {
+            
+            //backPack.Pack[1] = "the rusted set of tools"; use this when checking program to save time
+            
+            
             Console.Clear();
             Console.WriteLine("\n   <   <   <   <   <   <   <   <   =^.^=   >   >   >   >   >   >   >   >   >   \n");
             Console.WriteLine("Your eyes scan the room, taking in the details of your surroundings."
@@ -132,20 +135,20 @@ public class MainRoom
                     return;
                 case "7":
                     backPack.ListContentsOfPack();
-                    Console.WriteLine("Would you like to remove any items?" +
+                    Console.WriteLine("Would you like to use or remove any items?" +
                                       "\nPlease press '1' to remove an item and '2' to continue exploring the room");
                     while (UserChoice() == "1")
                     {
-                        backPack.RemoveItemsFromPack();
+                        backPack.RemoveItemsFromPack(cat);
                         backPack.ListContentsOfPack();
-                        Console.WriteLine("Would you like to remove another item?" +
+                        Console.WriteLine("Would you like to use or remove another item?" +
                                           "\n Press '1' to remove another item and '2' to continue exploring the room");
                     }
 
                     FirstRoomChoices();
                     return;
                 case "8":
-                    backPack.PickUpItemsFromDiscarded();
+                    backPack.PickUpItemsFromDiscarded(cat);
                     FirstRoomChoices();
                     return;
             }
@@ -175,7 +178,7 @@ public class MainRoom
                               "leave all the items untouched.");
 
             if (UserChoice() == "1")
-                backPack.TakeItems(location);
+                backPack.TakeItems(cat, location);
             ReturnToMainPartOfRoom(location);
         }
 
@@ -252,25 +255,60 @@ public class MainRoom
             {
                 case "1":
                     bool hasSheets = false;
+                    bool hasRope = false;
                     foreach (var item in backPack.Pack) //if you have sheets you can choose to use them
                     {
-                        if (item == "faded bed sheets")
+                        if (item.Contains("sheet"))
                             hasSheets = true;
+                        if (item.Contains("rope"))
+                            hasRope = true;
                     }
 
-                    if (hasSheets)
+                    if (hasSheets && hasRope)
+                    {
+                        Console.WriteLine("You check your inventory, searching for anything that might help. " +
+                                          "You find a length of rope and several bed sheets that could be tied " +
+                                          "together into a makeshift rope. " +
+                                          "\n\nHow would you like to proceed?" +
+                                          "\n'1' - Use the sheets." +
+                                          "\n'2' - Use the rope." +
+                                          "\n'3' - Jump directly down from the window ledge." +
+                                          "\n'4' - Use the rope.");
+                        switch (UserChoice(4))
+                        {
+                            case "1":
+                                UseSheets();
+                                return;
+                            case "2":
+                                UseSheets("rope");
+                                return;
+                            case "3":
+                                JumpDown();
+                                return;
+                            case "4":
+                                ReturnToMainPartOfRoom("window");
+                                return;
+                        }
+                    }
+                    else if (hasSheets || hasRope)
                     {
                         Console.WriteLine(
-                            "You find a pile of old sheets in your inventory. You realize they could be tied " +
-                            "together to make a rope to assist you in climbing down. " +
-                            "\nPress '1' to use the sheets to assist you, '2' to choose to leap down and '" +
-                            "3' to continue exploring other areas in the room.");
+                            $"You find a {(hasSheets ? "pile of old sheets" : "20 foot length of rope")} in your inventory.");
+                        if (hasSheets)
+                            Console.WriteLine("You realize they could be tied together to make a rope to assist you" +
+                                              " in climbing down.");
+                        Console.WriteLine($"Press '1' to use the {(hasSheets ? "sheets" : "rope")} to assist you, " +
+                                          $"'2' to choose to leap down and '3' to continue exploring other areas " +
+                                          $"in the room.");
                         //@fix Console.WriteLine(
                         // @fix "\n   -   -   -   -   -   -   -   -   =^.^=   -   -   -   -   -   -   -   -   -   -   \n");
                         switch (UserChoice(3))
                         {
                             case "1":
-                                UseSheets();
+                                if (hasSheets)
+                                    UseSheets();
+                                if (hasRope)
+                                    UseSheets("rope");
                                 return;
                             case "2":
                                 JumpDown();
@@ -289,7 +327,7 @@ public class MainRoom
                             "\nPlease press '1' to choose to leap down and '2' to continue exploring other areas in the room.");
                         Console.WriteLine(
                             "\n   -   -   -   -   -   -   -   -   =^.^=   -   -   -   -   -   -   -   -   -   -   \n");
-                        if (UserChoice(2) == "1")
+                        if (UserChoice() == "1")
                             JumpDown();
                         else
                             ReturnToMainPartOfRoom("door");
@@ -311,24 +349,67 @@ public class MainRoom
             Console.WriteLine("You take a deep breath and leap into the night, trusting your agility. For a brief " +
                               "moment, you feel weightless—until you land with a jarring thud. The ground is " +
                               "unforgiving, your 4 legs give way beneath you and your head smacks against the hard earth.");
-            cat.Status = cat.PassedOut;
+            cat.Location = Characters.Place.PassedOut;
         }
 
 
-        void UseSheets()
+        void UseSheets(string item = "sheets")
         {
             Console.WriteLine(
                 "\n   >   >   >   >   >   >   >   >   =^.^=   <   <   <   <   <   <   <   <   <   \n");
             Console.WriteLine(
-                "You reach into your pack and withdraw the worn but sturdy bed sheets. Working quickly, " +
-                "you tie them together, each knot pulled tight between your claws. You find a solid " +
-                "anchor—an iron ring embedded in the wall—and loop the sheets securely around it. " +
-                "With a final, cautious tug, you toss the bundle out the window. It unfurls, swaying " +
-                "slightly in the breeze, a lifeline into the unknown. " +
-                "The cold night air nips at your skin as you climb down, each movement measured and deliberate.");
-            Console.WriteLine("At last, your feet touch the ground—rough soil beneath you, a welcome change");
-            Console.WriteLine("from the damp stone. ");
-            cat.Status = cat.OutsideCastle;
+                $"You reach into your pack and withdraw the worn but sturdy {(item == "sheets" ? "sheets. Working " +
+                    "quickly, you tie them together, each knot pulled tight between your claws" : "rope")}. You find a solid " +
+                $"anchor — an iron ring embedded in the wall — and loop the {item} securely around it. " +
+                $"With a final, cautious tug, you toss the {(item == "sheets" ? "bundle" : "rope")} out the window.");
+            if (backPack.NumberOfSheets > 5 || item == "rope")
+                Console.WriteLine(
+                    $"Your {(item == "sheets" ? $"sheets reach {backPack.NumberOfSheets*4}" : "rope reaches 20")} feet " +
+                    $"down the wall you'll only need to survive a {(item == "sheets" ? 30-backPack.NumberOfSheets*4 : "10")} " +
+                    "foot drop once you reach the end of the rope.");
+            else
+                Console.WriteLine($"Your stomach drops when you realize that the tied sheets only stretch " +
+                                  $"{backPack.NumberOfSheets*4} feet down the wall. You'll only need to survive a " +
+                                  $"{30-backPack.NumberOfSheets*4} foot drop once you reach the end of the rope.");
+            Console.WriteLine("You must choose:");
+            Console.WriteLine("'1' - Climb down the rope and leap from the bottom." +
+                              "\n'2' - Jump directly from the window ledge." +
+                              $"\n'3' - Pull up the {item} and stash {(item == "sheets" ? "them" : "it")} " +
+                              $"then continue exploring the room.");
+            switch (UserChoice(3))
+            {
+                case "1":
+                    if (backPack.NumberOfSheets > 5 || item == "rope")
+                    {
+                        Console.WriteLine(
+                            $"You grip the {(item == "sheets" ? "knotted sheets" : "rope")} tightly and " +
+                            $"ease yourself out the window, claws scraping against the stone as you " +
+                            $"begin your descent. The {(item == "sheets" ? "fabric" : "rope")} creaks " +
+                            $"under your weight, but it holds as you inch lower, " +
+                            "the cool night air brushes against your fur." +
+                            "\n\n You reach the end of the rope and leap down.");
+                        Console.WriteLine(
+                            "At last, your feet touch the ground—rough soil beneath you, a welcome change");
+                        Console.WriteLine("from the damp stone. ");
+                        cat.Location = Characters.Place.OutsideCastle;
+                    }
+                    else
+                    {
+                        Console.WriteLine("You grip the knotted sheets tightly and ease yourself out the window, " +
+                                          "claws scraping against the stone as you begin your descent. The fabric creaks " +
+                                          "under your weight, but it holds as you inch lower, the cool night air brushing " +
+                                          "against your fur.\n\nYou reach the end.");
+                        JumpDown();
+                    }
+
+                    break;
+                case "2":
+                    JumpDown();
+                    break;
+                case "3":
+                    ReturnToMainPartOfRoom("window");
+                    break;
+            }
         }
 
         void ExploreDoor() //@add revisit this
@@ -518,7 +599,7 @@ public class MainRoom
                 $"force causes it to bounce off the door, sending the {objectName} ricocheting back toward");
             Console.WriteLine("you.");
             Console.WriteLine($"Before you can react, the {objectName} strikes your head with a sharp blow.");
-            cat.Status = cat.PassedOut;
+            cat.Location = Characters.Place.PassedOut;
         }
 
         void PickLock()
@@ -538,7 +619,7 @@ public class MainRoom
             Console.WriteLine("like a beacon, guiding your way. With each step, the cold night air seems to draw");
             Console.WriteLine("closer. With a final glance behind you, you sneak out the door, your heart pounding ");
             Console.WriteLine("in your chest.");*/ //@fix rework this
-            cat.Status = cat.ThirdFloor;
+            cat.Location = Characters.Place.ThirdFloor;
         }
     }
 }
