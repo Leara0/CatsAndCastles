@@ -9,6 +9,8 @@
   <component name="ChangeListManager">
     <list default="true" id="13d24547-b995-4f31-adef-80ea20e14f14" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CatsAndCastles/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CatsAndCastles/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CatsAndCastles/obj/Debug/net9.0/CatsAndCastles.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CatsAndCastles/obj/Debug/net9.0/CatsAndCastles.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CatsAndCastles/obj/Debug/net9.0/CatsAndCastles.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/CatsAndCastles/obj/Debug/net9.0/CatsAndCastles.AssemblyInfoInputs.cache" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +28,7 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 8
@@ -91,14 +94,17 @@
       <workItem from="1740355340709" duration="5511000" />
       <workItem from="1740423377867" duration="20612000" />
       <workItem from="1740502324485" duration="1262000" />
+      <workItem from="1740559227724" duration="4000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
 </project>
