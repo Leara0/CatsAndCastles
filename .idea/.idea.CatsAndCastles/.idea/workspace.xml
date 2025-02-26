@@ -8,29 +8,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="13d24547-b995-4f31-adef-80ea20e14f14" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/CatsAndCastles/OutsideCastle.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CatsAndCastles/SecondFloor.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CatsAndCastles/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CatsAndCastles/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CatsAndCastles/BackPack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CatsAndCastles/BackPack.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CatsAndCastles/Characters.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CatsAndCastles/Characters.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CatsAndCastles/Fight.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CatsAndCastles/Fight.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CatsAndCastles/MainRoom.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CatsAndCastles/MainRoom.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CatsAndCastles/MainStory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CatsAndCastles/MainStory.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CatsAndCastles/ThirdFloor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CatsAndCastles/ThirdFloor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CatsAndCastles/Weapons.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CatsAndCastles/Weapons.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CatsAndCastles/ZZZZZ.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CatsAndCastles/FirstFloor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CatsAndCastles/bin/Debug/net9.0/CatsAndCastles.dll" beforeDir="false" afterPath="$PROJECT_DIR$/CatsAndCastles/bin/Debug/net9.0/CatsAndCastles.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CatsAndCastles/bin/Debug/net9.0/CatsAndCastles.exe" beforeDir="false" afterPath="$PROJECT_DIR$/CatsAndCastles/bin/Debug/net9.0/CatsAndCastles.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CatsAndCastles/bin/Debug/net9.0/CatsAndCastles.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/CatsAndCastles/bin/Debug/net9.0/CatsAndCastles.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CatsAndCastles/obj/Debug/net9.0/CatsAndCastles.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CatsAndCastles/obj/Debug/net9.0/CatsAndCastles.AssemblyInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CatsAndCastles/obj/Debug/net9.0/CatsAndCastles.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/CatsAndCastles/obj/Debug/net9.0/CatsAndCastles.AssemblyInfoInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CatsAndCastles/obj/Debug/net9.0/CatsAndCastles.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/CatsAndCastles/obj/Debug/net9.0/CatsAndCastles.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CatsAndCastles/obj/Debug/net9.0/CatsAndCastles.dll" beforeDir="false" afterPath="$PROJECT_DIR$/CatsAndCastles/obj/Debug/net9.0/CatsAndCastles.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CatsAndCastles/obj/Debug/net9.0/CatsAndCastles.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/CatsAndCastles/obj/Debug/net9.0/CatsAndCastles.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CatsAndCastles/obj/Debug/net9.0/CatsAndCastles.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/CatsAndCastles/obj/Debug/net9.0/CatsAndCastles.sourcelink.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CatsAndCastles/obj/Debug/net9.0/apphost.exe" beforeDir="false" afterPath="$PROJECT_DIR$/CatsAndCastles/obj/Debug/net9.0/apphost.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CatsAndCastles/obj/Debug/net9.0/ref/CatsAndCastles.dll" beforeDir="false" afterPath="$PROJECT_DIR$/CatsAndCastles/obj/Debug/net9.0/ref/CatsAndCastles.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CatsAndCastles/obj/Debug/net9.0/refint/CatsAndCastles.dll" beforeDir="false" afterPath="$PROJECT_DIR$/CatsAndCastles/obj/Debug/net9.0/refint/CatsAndCastles.dll" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +19,11 @@
     <option name="firstShow" value="false" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo">{

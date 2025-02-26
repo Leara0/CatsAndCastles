@@ -83,7 +83,7 @@ public class MainRoom
         void FirstRoomChoices()
         {
             
-            backPack.Pack[1] = "the rusted set of tools";
+            //backPack.Pack[1] = "the rusted set of tools"; use this when checking program to save time
             
             
             Console.Clear();

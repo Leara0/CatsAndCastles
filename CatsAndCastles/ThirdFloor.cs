@@ -9,11 +9,11 @@ public class ThirdFloor
         MainRoom mainRoom = new MainRoom();
         cat.SuccessfulBribed = false;
 
-        backPack.Pack[0] = "150 gold coins"; //@fix get rid of these supplies in pack
+        /*backPack.Pack[0] = "150 gold coins"; //@fix get rid of these supplies in pack
         backPack.Wallet = 150;
         backPack.Pack[2] = "the short sword";
         backPack.Pack[3] = "the ring of keys";
-        backPack.Pack[4] = "the shield";
+        backPack.Pack[4] = "the shield";*/
 
         Console.Clear();
         Console.WriteLine("You slip into a dimly lit hallway. It's short and narrow, with three " +
