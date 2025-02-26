@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CatsAndCastles")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+858fdf147f9daf10e0d812678885e012e601e212")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+adb9222237b463976fb899354407a5a9dc0a90ae")]
 [assembly: System.Reflection.AssemblyProductAttribute("CatsAndCastles")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CatsAndCastles")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
