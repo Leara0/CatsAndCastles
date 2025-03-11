@@ -8,7 +8,10 @@ public class MainStory
 
         Characters cat = new Characters();
         cat.Name = cat.GetName();
+<<<<<<< HEAD
         cat.Health = 60;
+=======
+>>>>>>> testing
 
         BackPack backPack = new BackPack();
         backPack.Pack = new string[5]; // creates a new pack that holds 5 items 
@@ -20,6 +23,7 @@ public class MainStory
         backPack.DiscardedItems = new List<string>(); // create a record of all items that have been discarded 
         backPack.ListOfAllItemsPickedUp = new List<string>(); //keep track of all items that have been picked up 
 
+<<<<<<< HEAD
         MainRoomWithExitStrategies(cat, backPack, mainRoom);
 
         // you end up here if you fall out of the exit strategies loop - ie if you
@@ -121,5 +125,65 @@ public class MainStory
         Console.WriteLine("\n   >   >   >   >   >   >   >   >   =^.^=   <   <   <   <   <   <   <   <   <   \n");
         Console.WriteLine("Please press any key to continue...");
         Console.ReadKey();
+=======
+        Fight fight = new Fight(); // @fix move this to later when needed
+
+        mainRoom.Intro();
+        mainRoom.FirstWakeUp(cat.Name);
+        mainRoom.StartInRoom();
+        FirstRoomChoices(mainRoom, backPack, fight);
+        
+>>>>>>> testing
+    }
+
+    public static void FirstRoomChoices(MainRoom mainRoom, BackPack backPack, Fight fight)
+    {
+        string userChoice = mainRoom.FirstRoomOptions(backPack.Pack, backPack.DiscardedItems);
+        switch (userChoice) //@fix adjust this after removing 9
+        {
+            case "1":
+                ExploreDoor();
+                break;
+            case "2":
+                ExploreCloset(); //@done 
+                break;
+            case "3":
+                ExploreWindow(); //@done
+                break;
+            case "4":
+                ExploreNightStand(); //@done
+                break;
+            case "5":
+                ExploreBookshelf(); //@done
+                break;
+            case "6":
+                ExploreHearth(); //@done
+                break;
+            case "7":
+                backPack.ListContentsOfPack();
+                Console.WriteLine("Would you like to remove any items?" +
+                                  "\nPlease press '1' to remove an item and '2' to continue exploring the room");
+                while (mainRoom.UserChoice() == "1")
+                {
+                    backPack.RemoveItemsFromPack();
+                    backPack.ListContentsOfPack();
+                    Console.WriteLine("Would you like to remove another item?" +
+                                      "\n Press '1' to remove another item and '2' to continue exploring the room");
+                }
+
+                FirstRoomChoices(mainRoom, backPack, fight);
+                break;
+            case "8":
+                backPack.PickUpItemsFromDiscarded();
+                FirstRoomChoices(mainRoom, backPack, fight);
+                return; //@fix is this the right thing here?
+            case "9":
+                string choice = fight.ChooseWeapon(backPack.Pack);
+                Console.WriteLine($"You chose {choice}");
+                Console.WriteLine("Press 'enter'");
+                Console.ReadLine();
+                FirstRoomChoices(mainRoom, backPack, fight);
+                break;
+        }
     }
 }
